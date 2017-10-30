@@ -1,25 +1,22 @@
 package com.personmanager.controller;
 
 import com.personmanager.model.Person;
-import com.personmanager.service.PersonService;
+import com.personmanager.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PersonController {
 
-    private PersonService personService;
+    private PeopleService peopleService;
 
     @Autowired
-    @Qualifier(value = "personService")
-    public void setPersonService(PersonService personService) {
-        this.personService = personService;
+    @Qualifier(value = "peopleService")
+    public void setPeopleService(PeopleService peopleService) {
+        this.peopleService = peopleService;
     }
 
     @RequestMapping("/")
@@ -27,42 +24,42 @@ public class PersonController {
         return "index";
     }
 
-    @RequestMapping(value = "persons", method = RequestMethod.GET)
+    @RequestMapping(value = "people", method = RequestMethod.GET)
     public String listPersons(Model model){
         model.addAttribute("person", new Person());
-        model.addAttribute("listPersons", this.personService.listPersons());
-        return "persons";
+        model.addAttribute("listPeople", this.peopleService.listPeople());
+        return "people";
     }
 
-    @RequestMapping(value = "/persons/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/people/add", method = RequestMethod.POST)
     public String addPerson(@ModelAttribute("person") Person person){
         if(person.getId() == 0){
-            this.personService.addPerson(person);
+            this.peopleService.addPerson(person);
         }else {
-            this.personService.updatePerson(person);
+            this.peopleService.updatePerson(person);
         }
 
-        return "redirect:/persons";
+        return "redirect:/people";
     }
 
-    @RequestMapping("/remove/{id}")
-    public String removePerson(@PathVariable("id") int id){
-        this.personService.removePerson(id);
+    @RequestMapping("/remove/{personid}")
+    public String removePerson(@PathVariable("personid") int id){
+        this.peopleService.removePerson(id);
 
-        return "redirect:/persons";
+        return "redirect:/people";
     }
 
-    @RequestMapping("/edit/{id}")
-    public String editPerson(@PathVariable("id") int id, Model model){
-        model.addAttribute("person", this.personService.getPersonById(id));
-        model.addAttribute("listPersons", this.personService.listPersons());
+    @RequestMapping("/edit/{personid}")
+    public String editPerson(@PathVariable("personid") int id, Model model){
+        model.addAttribute("person", this.peopleService.getPersonById(id));
+        model.addAttribute("listPeople", this.peopleService.listPeople());
 
-        return "persons";
+        return "people";
     }
 
-    @RequestMapping("persondata/{id}")
-    public String personData(@PathVariable("id") int id, Model model){
-        model.addAttribute("person", this.personService.getPersonById(id));
+    @RequestMapping("persondata/{personid}")
+    public String personData(@PathVariable("personid") int id, Model model){
+        model.addAttribute("person", this.peopleService.getPersonById(id));
         return "persondata";
     }
 }

@@ -5,7 +5,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-    <title>Persons Page</title>
+    <title>People Page</title>
 
     <style type="text/css">
         .tg {
@@ -52,9 +52,9 @@
 <br/>
 <br/>
 
-<h2>Persons List</h2>
+<h2>People List</h2>
 
-<c:if test="${!empty listPersons}">
+<c:if test="${!empty listPeople}">
     <table class="tg">
         <tr>
             <th width="80">ID</th>
@@ -64,7 +64,7 @@
             <th width="60">Edit</th>
             <th width="60">Delete</th>
         </tr>
-        <c:forEach items="${listPersons}" var="person">
+        <c:forEach items="${listPeople}" var="person">
             <tr>
                 <td>${person.id}</td>
                 <td><a href="/persondata/${person.id}" target="_blank">${person.firstName}</a></td>
@@ -80,7 +80,7 @@
 
 <h2>Add a Person</h2>
 
-<c:url var="addAction" value="/persons/add"/>
+<c:url var="addAction" value="/people/add"/>
 
 <form:form action="${addAction}" commandName="person">
     <table>

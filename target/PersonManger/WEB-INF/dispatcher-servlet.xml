@@ -51,7 +51,7 @@
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </bean>
 
-    <bean id="personService" class="com.personmanager.service.PersonServiceImpl">
+    <bean id="peopleService" class="com.personmanager.service.PeopleServiceImpl">
         <property name="personDao" ref="personDao"/>
     </bean>
 

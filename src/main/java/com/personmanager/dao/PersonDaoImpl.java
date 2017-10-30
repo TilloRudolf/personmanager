@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
+    @Transactional
     public void addPerson(Person person) {
         Session session = this.sessionFactory.getCurrentSession();
         session.persist(person);
@@ -28,6 +30,7 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
+    @Transactional
     public void updatePerson(Person person) {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(person);
@@ -35,6 +38,7 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
+    @Transactional
     public void removePerson(int id) {
         Session session = this.sessionFactory.getCurrentSession();
         Person person = (Person) session.load(Person.class, id);
@@ -46,6 +50,7 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
+    @Transactional
     public Person getPersonById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
         Person person = (Person) session.load(Person.class, id);
@@ -54,8 +59,9 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
+    @Transactional
     @SuppressWarnings("unchecked")
-    public List<Person> listPersons() {
+    public List<Person> listPeople() {
         Session session = this.sessionFactory.getCurrentSession();
         List<Person> personList = session.createQuery("from Person").list();
         for(Person person: personList){

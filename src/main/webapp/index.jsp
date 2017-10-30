@@ -7,7 +7,7 @@
 <body>
 <h3>Hello</h3>
 <br/>
-<a href="<c:url value="/persons"/>" target="_blank">Persons list</a>
+<a href="<c:url value="/people"/>" target="_blank">People list</a>
 <br/>
 </body>
 </html>
